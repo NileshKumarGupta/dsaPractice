@@ -27,12 +27,35 @@ int main(){
       nums.push_back(make_pair(num, i));
     }
 
+    int pos = 0;
+    for(int i = 0; i < n; i++)
+      if(nums[i].first >= 0)
+        pos++;
+
     sort(nums.begin(), nums.end(), greater_pair);
 
     int subseqlen = 0;
     long long int product = 1;
     vector<long long int> num_store;
     int last_index = 0;
+
+    //cout<<pos<<" "<<k<<"\n";
+    if(k % 2 == 1 && pos < k){
+      int rev = n - 1;
+
+      while(subseqlen != k){
+        product *= nums[rev].first;
+        subseqlen++;
+        rev--;
+      }
+
+      product = product % 1000000007;
+      if(product < 0)
+        product += 1000000007;
+      
+      cout<<product<<'\n';
+      continue;
+    }
 
     for(int i = 0; i < n; i++){
       if(subseqlen == k)
